@@ -2,8 +2,9 @@ import React from "react";
 
 import './menu-item.styles.scss'
 
-const MenuItem = ({ title, imageUrl, size }) => (
-    <div className={`${size} menu-item`}>
+const MenuItem = ({ title, imageUrl, size, linkUrl, router}) => {
+    return (
+    <div className={`${size} menu-item`} onClick={() => router.navigate(`${linkUrl}`)}>
         <div
             className="background-image"
             style={{
@@ -14,6 +15,6 @@ const MenuItem = ({ title, imageUrl, size }) => (
             <span className="subtitle">SHOP NOW</span>
         </div>
     </div>
-)
+)}
 
 export default MenuItem
