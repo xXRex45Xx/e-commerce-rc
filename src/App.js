@@ -6,14 +6,7 @@ import {
 
 import './App.css';
 import HomePage from './pages/homepage/homepage.component';
-
-const HatsPage = (props) => {
-  return (
-    <div>
-      <h1>Hats Page</h1>
-    </div>
-  )
-}
+import ShopPage  from './pages/shoppage/shoppage.component';
 
 function App() {
   return (
@@ -21,7 +14,7 @@ function App() {
       <Routes>
         <Route path='/'>
           <Route index element={<HomePage />}/>
-          <Route path='hats' element={<HatsPage />}/>
+          <Route path='shop' element={<ShopPage />}/>
         </Route>
       </Routes>
     </div>
