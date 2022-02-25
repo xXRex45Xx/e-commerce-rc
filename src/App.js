@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Navigate,
   Route,
   Routes
 } from 'react-router-dom';
@@ -15,8 +16,8 @@ import { createUserProfileDocument, fsAuth } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.action';
 
 class App extends React.Component {
-
   unsubscribeFromAuth = null;
+
   componentWillUnmount() {
     this.unsubscribeFromAuth()
   }
@@ -46,7 +47,7 @@ class App extends React.Component {
           <Route path='/'>
             <Route index element={<HomePage />} />
             <Route path='shop' element={<ShopPage />} />
-            <Route path='signin' element={<CredentialsPage />} />
+            <Route path='signin' element={this.props.currentUser ? <Navigate to='/'/> : <CredentialsPage/>}/>
           </Route>
         </Routes>
       </div>
@@ -54,8 +55,12 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

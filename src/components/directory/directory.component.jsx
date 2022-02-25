@@ -22,8 +22,8 @@ class Directory extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    sections: state.directory.sections
+const mapStateToProps = ({directory}) => ({
+    sections: directory.sections
 });
 
 export default connect(mapStateToProps)(Directory);
