@@ -2,7 +2,7 @@ import React from "react";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import { fsAuth, createUserProfileDocument, createUser } from "../../firebase/firebase.utils";
+import { createUserProfileDocument, createUser } from "../../firebase/firebase.utils";
 import { setSignUpInfo } from "../../redux/user/user.action";
 import { connect } from "react-redux";
 
