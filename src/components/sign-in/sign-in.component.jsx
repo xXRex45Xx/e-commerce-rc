@@ -1,70 +1,75 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import { signInWithGoogle, signIn } from "../../firebase/firebase.utils";
-import { Navigate } from "react-router-dom";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import './sign-in.styles.scss'
+import { setLoginCreds } from "../../redux/user/user.action";
+import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            email: '',
-            password: '',
-            afterSignIn: false
-        }
-    }
 
     handleSubmit = async (e) => {
         e.preventDefault()
-        const { email, password } = this.state;
+        const { email, password } = this.props;
 
-        await signIn(email, password).catch(err => console.log(err))
-        this.setState({
-            email: '',
-            password: '',
-            afterSignIn: true
+        const signInPromise =  signIn(email, password);
+        
+        signInPromise.then(value => {
+            this.props.setLoginCreds({
+                ...this.props,
+                email: '',
+                password: ''
+            })
+            if(!value){
+                this.props.setLoginCreds({
+                    ...this.props,
+                    incorrectPassword: true
+                })
+            }
         })
     }
 
     handleChange = e => {
         const { value, name } = e.target
-        this.setState({ [name]: value })
+        this.props.setLoginCreds({
+            ...this.props,
+            [name]: value
+        });
+        this.props.setLoginCreds({
+            ...this.props,
+            [name]: value
+        });
     }
 
     render() {
         return (
             <div className="sign-in">
-                {this.state.afterSignIn ? <Navigate to='/' /> : null}
                 <h2>I already have an account</h2>
                 <span>Sign in with your email and password</span>
+                {this.props.incorrectPassword ? <span>Incorrect Username or Password</span> : null}
                 <form onSubmit={this.handleSubmit}>
                     <FormInput
                         name="email"
                         handleChange={this.handleChange}
-                        value={this.state.email}
+                        value={this.props.email}
                         type="email"
                         label="Email"
                         required
                     />
                     <FormInput
                         name="password"
-                        value={this.state.password}
+                        value={this.props.password}
                         type="password"
                         onChange={this.handleChange}
                         label="Password"
                         required />
                     <div className="buttons">
                         <CustomButton type="submit">Sign In</CustomButton>
-                        <CustomButton type="button" onClick={async () => {
-                            await signInWithGoogle();
-                            this.setState({ afterSignIn: true })
-
-                        }} isGoogleSignIn>Sign In With Google</CustomButton>
-
+                        <CustomButton type="button"
+                            onClick={async () => await signInWithGoogle()}
+                            isGoogleSignIn>Sign In With Google</CustomButton>
                     </div>
                 </form>
             </div>
@@ -72,4 +77,13 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn
+const mapStateToProps = ({ user }) => ({
+    ...user.loginCreds
+});
+
+
+const mapDispatchToProps = dispatch => ({
+    setLoginCreds: loginCreds => dispatch(setLoginCreds(loginCreds))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

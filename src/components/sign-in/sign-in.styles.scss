@@ -4,11 +4,15 @@
     flex-flow: column nowrap;
 
     .title{
-        margin: 10px 0
+        margin: 10px 0;
     }
 
     .buttons{
         display: flex;
         justify-content: space-between;
+    }
+    
+    span{
+        margin: 10px 0;
     }
 }
