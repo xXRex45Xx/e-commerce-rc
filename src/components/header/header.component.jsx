@@ -20,7 +20,7 @@ const Header = ({ currentUser, hidden }) => (
         </Link>
         <div className="options">
             <Link className="option" to='/shop'>SHOP</Link>
-            <Link className="option" to='/shop'>CONTACT</Link>
+            <Link className="option" to='/contactus'>CONTACT US</Link>
             {currentUser ? <div className="option" onClick={() => fsAuth.signOut()}>SIGN OUT</div> :
                 <Link className="option" to='/signin'>SIGN IN</Link>}
             <CartIcon />

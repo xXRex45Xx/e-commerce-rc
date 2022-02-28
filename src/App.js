@@ -15,6 +15,7 @@ import CredentialsPage from './pages/credentialspage/credentialspage.component';
 import { createUserProfileDocument, fsAuth } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.action';
 import { selectCurrentUser } from './redux/user/user.selector';
+import CheckoutPage from './pages/checkout/checkout.component';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -48,6 +49,7 @@ class App extends React.Component {
           <Route path='/'>
             <Route index element={<HomePage />} />
             <Route path='shop' element={<ShopPage />} />
+            <Route path='checkout' element={<CheckoutPage/>}/>
             <Route path='signin' element={this.props.currentUser ? <Navigate to='/'/> : <CredentialsPage/>}/>
           </Route>
         </Routes>
