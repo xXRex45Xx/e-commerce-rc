@@ -5,6 +5,7 @@ import CustomButton from "../custom-button/custom-button.component";
 import { createUserProfileDocument, createUser } from "../../firebase/firebase.utils";
 import { setSignUpInfo } from "../../redux/user/user.action";
 import { connect } from "react-redux";
+import { selectSignUpInfo } from "../../redux/user/user.selector";
 
 import './sign-up.styles.scss'
 
@@ -94,8 +95,8 @@ class SignUp extends React.Component {
     }
 }
 
-const mapStateToProps = ({ user }) => ({
-    ...user.signUpInfo
+const mapStateToProps = state => ({
+    ...selectSignUpInfo(state)
 });
 
 const mapDispatchToProps = dispatch => ({

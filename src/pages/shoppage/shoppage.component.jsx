@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import CollectionPreview from "../../components/collection-preview/collection-preview.component";
-import { connect } from "react-redux";
+import { selectCollections } from "../../redux/shop/shop.selector";
+
 class ShopPage extends React.Component {
     render() {
         if (this.props.collections) {
@@ -22,7 +24,7 @@ class ShopPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    collections: state.shop.collections
+    collections: selectCollections(state)
 })
 
 export default connect(mapStateToProps)(ShopPage)

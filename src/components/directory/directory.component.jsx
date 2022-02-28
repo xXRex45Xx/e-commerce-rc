@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import MenuItem from "../menu-item/menu-item.component";
+import { selectDirectorySections } from "../../redux/directory/directory.selector";
+
 import './directory.styles.scss'
 
 class Directory extends React.Component {
@@ -22,8 +24,8 @@ class Directory extends React.Component {
     }
 }
 
-const mapStateToProps = ({directory}) => ({
-    sections: directory.sections
+const mapStateToProps = state => ({
+    sections: selectDirectorySections(state)
 });
 
 export default connect(mapStateToProps)(Directory);

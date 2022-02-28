@@ -6,6 +6,8 @@ import { signInWithGoogle, signIn } from "../../firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 import { setLoginCreds } from "../../redux/user/user.action";
+import { selectLoginCreds } from "../../redux/user/user.selector";
+
 import './sign-in.styles.scss';
 
 class SignIn extends React.Component {
@@ -77,8 +79,8 @@ class SignIn extends React.Component {
     }
 }
 
-const mapStateToProps = ({ user }) => ({
-    ...user.loginCreds
+const mapStateToProps = state => ({
+    ...selectLoginCreds(state)
 });
 
 
